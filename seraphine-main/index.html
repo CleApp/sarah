@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lena Rose | Photography</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blush: #F8C8DC;
+            --blush-dark: #FFB6C1;
+            --black: #000000;
+            --white: #FFFFFF;
+            --gray: #F5F5F5;
+        }
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box; /* Added for better box model handling */
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif; /* Changed to Open Sans, generally more readable */
+            margin: 0;
+            padding: 0;
+            background-color: var(--white);
+            color: var(--black);
+        }
+
+        /* Header with Hamburger Menu */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: var(--black);
+            position: fixed;
+            width: 100%; /* Changed from 90% to 100% for full width */
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif; /* Elegant font for logo */
+            font-size: 2rem; /* Slightly larger for impact */
+            font-weight: 700; /* Bolder */
+            letter-spacing: 3px; /* Increased letter spacing */
+            color: var(--white);
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--blush);
+        }
+
+        /* ====== HAMBURGER MENU ====== */
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            z-index: 1000;
+            width: 30px;
+            height: 20px;
+            position: relative;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--white);
+            position: absolute;
+            left: 0;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle span:nth-child(1) {
+            top: 0;
+        }
+
+        .menu-toggle span:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .menu-toggle span:nth-child(3) {
+            bottom: 0;
+        }
+
+        /* Active state (when menu is open) */
+        .menu-toggle.active span:nth-child(1) {
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            bottom: 50%;
+            transform: translateY(50%) rotate(-45deg);
+        }
+
+        /* Desktop Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            margin-left: 2.5rem; /* Increased spacing */
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 1rem; /* Slightly larger font size */
+            letter-spacing: 1.5px;
+            transition: color 0.3s ease, transform 0.3s ease; /* Added transform for hover effect */
+            position: relative; /* For underline effect */
+            padding-bottom: 5px; /* Space for underline */
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--blush);
+            left: 0;
+            bottom: 0;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--blush);
+            transform: translateY(-3px); /* Subtle lift on hover */
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh; /* Ensures it takes full viewport height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: var(--black);
+            color: var(--white);
+            padding: 8rem 5% 4rem; /* Adjusted padding for fixed header */
+            position: relative;
+            overflow: hidden; /* To contain pseudo-elements */
+        }
+
+        .hero::before { /* Decorative background overlay */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('hero-bg.jpg') no-repeat center center/cover; /* Placeholder for a nice background image */
+            opacity: 0.2; /* Subtle overlay */
+            z-index: 1;
+        }
+
+        .hero-content { /* Wrapper for hero text and image */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem; /* Spacing between text and image */
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+            z-index: 2; /* Above the background overlay */
+        }
+
+        .hero-text {
+            max-width: 550px; /* Increased max-width */
+            text-align: left; /* Aligned text to left */
+            padding-right: 2rem; /* Spacing for text next to image */
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem; /* Larger font size */
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.1rem; /* Larger font size */
+            max-width: 600px;
+            margin-bottom: 2.5rem; /* More space before button */
+            line-height: 1.7;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem; /* Larger padding */
+            background-color: var(--blush);
+            color: var(--black);
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.3s ease, transform 0.2s ease; /* Added transform for button click effect */
+            font-weight: 600;
+            border-radius: 3px;
+            display: inline-block; /* To allow padding and margin */
+        }
+
+        .btn:hover {
+            background-color: var(--blush-dark);
+            transform: translateY(-3px); /* Subtle lift on hover */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Soft shadow on hover */
+        }
+
+        .btn:active {
+            transform: translateY(0); /* Press effect */
+        }
+
+        .profile-img-container {
+            width: 350px; /* Consistent size */
+            height: 350px;
+            border-radius: 50%;
+            border: 10px solid var(--blush); /* Thicker border */
+            padding: 10px; /* Space between border and image */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Added shadow */
+            flex-shrink: 0; /* Prevent shrinking on smaller screens */
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        /* About Section (Employer-Focused) */
+        .about {
+            padding: 6rem 5%; /* Increased padding */
+            background-color: var(--gray);
+            text-align: center;
+        }
+
+        .about h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.2rem; /* Larger font size */
+            margin-bottom: 2.5rem; /* More space */
+            color: var(--black);
+            font-weight: 400;
+        }
+
+        .about p {
+            font-size: 1.15rem; /* Slightly larger */
+            max-width: 850px;
+            margin: 0 auto 1.5rem; /* Adjusted margin */
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .signature {
+            font-family: 'Cormorant Garamond', serif; /* Used Cormorant for consistency and elegance */
+            font-size: 2.2rem; /* Larger and more prominent */
+            color: var(--blush-dark);
+            margin-top: 2rem;
+            display: block; /* Ensures it's on its own line */
+            font-weight: 400;
+        }
+
+        /* Portfolio Grid */
+        .portfolio {
+            padding: 6rem 5%; /* Increased padding */
+            background-color: var(--white);
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            text-align: center;
+            margin-bottom: 3.5rem; /* More space */
+            font-size: 3.2rem; /* Larger font size */
+            font-weight: 400;
+            color: var(--black);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Adjusted minmax for better flexibility */
+            gap: 2rem; /* Increased gap */
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1/1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for items */
+            border-radius: 5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.08); /* Slightly more zoom */
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top,rgb(238, 148, 163), transparent); /* Darker overlay */
+            padding: 1.5rem; /* More padding */
+            color: var(--white);
+            transform: translateY(100%);
+            transition: transform 0.4s ease; /* Slower transition */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-start;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+        }
+
+        .portfolio-overlay h3 {
+            font-size: 1.5rem; /* Larger title */
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .portfolio-overlay p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--black);
+            padding: 4rem 5%; /* Increased padding */
+            text-align: center;
+            color: var(--white);
+        }
+
+        .social-links {
+            margin-bottom: 2.5rem; /* More space */
+        }
+
+        .social-links a {
+            color: var(--white);
+            margin: 0 1.2rem; /* Increased spacing */
+            font-size: 2rem; /* Larger icons */
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-block; /* To apply transform */
+        }
+
+        .social-links a:hover {
+            color: var(--blush);
+            transform: translateY(-5px); /* Lift effect on hover */
+        }
+
+        .copyright {
+            font-size: 0.95rem; /* Slightly larger */
+            color: #aaa; /* Lighter gray */
+            margin-top: 2.5rem;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 5%;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                display: none; /* Hidden by default on mobile */
+                flex-direction: column;
+                position: fixed; /* Changed to fixed for full screen overlay */
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh; /* Full viewport height */
+                background-color: var(--black);
+                justify-content: center;
+                align-items: center;
+                padding: 0; /* Remove default padding */
+                margin: 0; /* Remove default margin */
+                z-index: 999; /* Ensure it's above other content but below toggle */
+                transform: translateX(100%); /* Start off-screen */
+                transition: transform 0.4s ease-out; /* Smooth slide-in */
+            }
+
+            nav ul.active {
+                display: flex; /* Show when active */
+                transform: translateX(0); /* Slide into view */
+            }
+
+            nav li {
+                margin: 1.5rem 0; /* Vertical spacing */
+            }
+
+            nav a {
+                font-size: 1.8rem; /* Larger links for touch */
+                padding-bottom: 8px;
+            }
+
+            .hero {
+                padding: 6rem 5% 3rem; /* Adjusted padding for mobile */
+                min-height: auto; /* Allow content to dictate height */
+            }
+
+            .hero-content {
+                flex-direction: column-reverse; /* Puts image above text on mobile */
+                gap: 2rem;
+            }
+
+            .hero-text {
+                text-align: center; /* Center text on mobile */
+                padding-right: 0;
+            }
+
+            .hero h1 {
+                font-size: 1.6rem; /* Smaller for mobile */
+            }
+
+            .hero p {
+                font-size: 1.0rem;
+            }
+
+            .profile-img-container {
+                width: 250px; /* Smaller image on mobile */
+                height: 250px;
+                border-width: 7px; /* Thinner border */
+                padding: 7px;
+            }
+
+            .about {
+                padding: 4rem 5%;
+            }
+
+            .about h2, .section-title {
+                font-size: 2.5rem;
+            }
+
+            .about p {
+                font-size: 1rem;
+            }
+
+            .signature {
+                font-size: 1.8rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr; /* Single column on mobile */
+            }
+
+            .portfolio-overlay h3 {
+                font-size: 1.3rem;
+            }
+
+            .portfolio-overlay p {
+                font-size: 0.9rem;
+            }
+
+            footer {
+                padding: 3rem 5%;
+            }
+
+            .social-links a {
+                font-size: 1.8rem;
+                margin: 0 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .btn {
+                padding: 0.7rem 2rem;
+            }
+
+            .about h2, .section-title {
+                font-size: 2rem;
+            }
+
+            .signature {
+                font-size: 1.5rem;
+            }
+
+            .profile-img-container {
+                width: 200px;
+                height: 200px;
+            }
+        }
+        /* Inside your <style> tags in the HTML */
+
+/* Add this keyframe animation */
+@keyframes border-pulse {
+    0% {
+        border-color: var(--blush);
+        box-shadow: 0 0 0px var(--blush);
+    }
+    50% {
+        border-color: var(--blush-dark); /* Slightly darker blush in the middle */
+        box-shadow: 0 0 15px rgba(255, 182, 193, 0.7); /* Soft glow effect */
+    }
+    100% {
+        border-color: var(--blush);
+        box-shadow: 0 0 0px var(--blush);
+    }
+}
+
+/* Modify the .profile-img-container */
+.profile-img-container {
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    border: 10px solid var(--blush); /* Thicker border */
+    padding: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+
+    /* Add the animation properties */
+    animation: border-pulse 3s infinite alternate ease-in-out; /* 3 seconds, infinite, alternates direction, smooth timing */
+}
+
+/* Add media queries for responsiveness */
+@media (max-width: 768px) {
+    .profile-img-container {
+        width: 250px; /* Smaller image on mobile */
+        height: 250px;
+        border-width: 7px; /* Thinner border */
+        padding: 7px;
+        animation: border-pulse 2.5s infinite alternate ease-in-out; /* Slightly faster on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-img-container {
+        width: 200px;
+        height: 200px;
+        animation: border-pulse 2s infinite alternate ease-in-out; /* Faster on very small screens */
+    }
+}
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo">SERA<span>PHINE</span></div>
+
+    <nav>
+        <ul id="nav-menu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    <button class="menu-toggle" id="mobile-menu" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>HI, I am Seraphine Esenam Abia</h1>
+                <p>Professional photography blending artistry with emotion. Specializing in portraits, editorial, and brand storytelling.</p>
+                <a href="#portfolio" class="btn">View Portfolio</a>
+            </div>
+            <div class="profile-img-container">
+                <img src="WhatsApp Image 2025-06-05 at 08.38.05.jpeg" alt="Lena Rose Profile">
+                </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <h2>Why Work With Me?</h2>
+        <p>With a keen eye for detail and a passion for storytelling, I create visuals that elevate brands and capture authentic moments. My work is more than just photography—it's about crafting a narrative that resonates with your audience.</p>
+        <p>Whether you're a fashion label, magazine, or business seeking compelling imagery, I bring creativity, professionalism, and a unique perspective to every project.</p>
+        <p class="signature">— Seraphine Esenam Abia</p>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+        <h2 class="section-title">Portfolio</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <img style="border-radius: 6%;" src="WhatsApp Image 2025-06-05 at 09.11.54.jpeg" alt="Portrait Photography">
+                <div class="portfolio-overlay">
+                    <h3>Portrait Series</h3>
+                    <p>Editorial Collection</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img style="border-radius: 6%;" src="WhatsApp Image 2025-06-05 at 09.11.53.jpeg" alt="Fashion Photography">
+                <div class="portfolio-overlay">
+                    <h3>Team Work</h3>
+                    <p>My team members</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img style="border-radius: 6%;" src="WhatsApp Image 2025-06-05 at 09.11.51.jpeg" alt="Wedding Photography">
+                <div class="portfolio-overlay">
+                    <h3>Elegant Weddings</h3>
+                    <p>Emotional Storytelling</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img style="border-radius: 6%;" src="WhatsApp Image 2025-06-05 at 09.11.52.jpeg" alt="Nature Photography">
+                <div class="portfolio-overlay">
+                    <h3>Cultural Edition</h3>
+                    <p>capturing beauty in tradition</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img style="border-radius: 6%;" src="WhatsApp Image 2025-06-05 at 09.11.50.jpeg" alt="Product Photography">
+                <div class="portfolio-overlay">
+                    <h3>Product Showcase</h3>
+                    <p>Detail-Oriented Shots</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img style="border-radius: 6%;" src="WhatsApp Image 2025-06-05 at 09.11.53 (1).jpeg" alt="Event Photography">
+                <div class="portfolio-overlay">
+                    <h3>Event Coverage</h3>
+                    <p>Capturing the Atmosphere</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="social-links">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:hello@lenarose.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p class="copyright">© 2024 Seraphine Photography. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            // Toggle overflow-hidden on body to prevent scrolling when menu is open
+            document.body.classList.toggle('overflow-hidden', navMenu.classList.contains('active'));
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('#nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.classList.remove('overflow-hidden');
+            });
+        });
+    </script>
+</body>
+</html>
